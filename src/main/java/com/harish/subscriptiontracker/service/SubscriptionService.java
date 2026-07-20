@@ -11,6 +11,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.harish.subscriptiontracker.entity.enums.Category;
+import com.harish.subscriptiontracker.entity.enums.Status;
+import com.harish.subscriptiontracker.repository.SubscriptionSpecification;
+import org.springframework.data.jpa.domain.Specification;
+
 @Service
 public class SubscriptionService {
 
@@ -44,9 +49,10 @@ public class SubscriptionService {
         return SubscriptionResponse.from(savedSubscription);
     }
 
-    public Page<SubscriptionResponse> getUserSubscriptions(Pageable pageable) {
+    public Page<SubscriptionResponse> getUserSubscriptions(Pageable pageable, String search, Status status, Category category) {
         User user = getAuthenticatedUser();
-        Page<Subscription> subscriptions = subscriptionRepository.findByUserId(user.getId(), pageable);
+        Specification<Subscription> spec = SubscriptionSpecification.filterBy(user.getId(), search, status, category);
+        Page<Subscription> subscriptions = subscriptionRepository.findAll(spec, pageable);
         return subscriptions.map(SubscriptionResponse::from);
     }
 

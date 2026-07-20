@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.harish.subscriptiontracker.entity.enums.Category;
+import com.harish.subscriptiontracker.entity.enums.Status;
+
 @RestController
 @RequestMapping("/api/v1/subscriptions")
 public class SubscriptionController {
@@ -33,10 +36,13 @@ public class SubscriptionController {
     @GetMapping
     public ResponseEntity<ApiResponse<Page<SubscriptionResponse>>> getUserSubscriptions(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) Status status,
+            @RequestParam(required = false) Category category) {
         
         Pageable pageable = PageRequest.of(page, size);
-        Page<SubscriptionResponse> response = subscriptionService.getUserSubscriptions(pageable);
+        Page<SubscriptionResponse> response = subscriptionService.getUserSubscriptions(pageable, search, status, category);
         return ResponseEntity.ok(ApiResponse.success("Subscriptions retrieved successfully", response));
     }
 
