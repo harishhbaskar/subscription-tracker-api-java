@@ -1,11 +1,11 @@
-# 🚀 Subscription Tracker API
+# 🗓️ Subscription Tracker API
 
 ![Java](https://img.shields.io/badge/Java-21-orange.svg)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.2-brightgreen.svg)
 ![Spring Security](https://img.shields.io/badge/Spring%20Security-JWT-blue.svg)
 ![MariaDB](https://img.shields.io/badge/MariaDB-Supported-blue.svg)
 
-A production-ready, enterprise-grade REST API for tracking personal subscriptions. Built with **Java 21** and **Spring Boot 3**, this project demonstrates modern backend architecture, secure stateless authentication, and robust data validation.
+A production-ready REST API for tracking personal subscriptions. Built with **Java 21** and **Spring Boot 3**, this project demonstrates modern backend architecture, secure stateless authentication, and robust data validation.
 
 ---
 
@@ -24,40 +24,7 @@ A production-ready, enterprise-grade REST API for tracking personal subscription
 
 This application follows the standard Enterprise Java Layered Architecture, ensuring that HTTP parsing, business logic, and database access are strictly isolated.
 
-```mermaid
-graph TD
-    Client((Client / Postman))
-    
-    subgraph Spring Security Filter Chain
-        RateLimit[RateLimitFilter <br/> 100 req/min]
-        JWTFilter[JwtAuthFilter <br/> Validates Token]
-    end
-
-    subgraph Presentation Layer
-        Controller[Controllers <br/> @RestController]
-        GlobalEx[GlobalExceptionHandler <br/> @RestControllerAdvice]
-    end
-
-    subgraph Business Layer
-        Service[Services <br/> @Service]
-    end
-
-    subgraph Data Access Layer
-        Repository[Repositories <br/> Spring Data JPA]
-    end
-
-    DB[(MariaDB)]
-
-    Client -->|HTTP Request| RateLimit
-    RateLimit --> JWTFilter
-    JWTFilter --> Controller
-    Controller -->|DTOs| Service
-    Service -->|Entities| Repository
-    Repository -->|SQL| DB
-    
-    Controller -.->|Throws Exception| GlobalEx
-    GlobalEx -.->|Standard Error Response| Client
-```
+![Architecture Diagram](docs/architecture.svg)
 
 ---
 
