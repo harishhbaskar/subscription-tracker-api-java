@@ -34,3 +34,4 @@ build/
 notes/
 repomix-output.xml
 application.properties
+.env
