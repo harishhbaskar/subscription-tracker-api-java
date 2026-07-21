@@ -3,9 +3,10 @@
 ![Java](https://img.shields.io/badge/Java-21-orange.svg)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.2-brightgreen.svg)
 ![Spring Security](https://img.shields.io/badge/Spring%20Security-JWT-blue.svg)
-![MariaDB](https://img.shields.io/badge/MariaDB-Supported-blue.svg)
+![MySQL/TiDB](https://img.shields.io/badge/MySQL-TiDB-blue.svg)
+![Render](https://img.shields.io/badge/Hosted_on-Render-purple.svg)
 
-A production-ready REST API for tracking personal subscriptions. Built with **Java 21** and **Spring Boot 3**, this project demonstrates modern backend architecture, secure stateless authentication, and robust data validation.
+A production-ready REST API for tracking personal subscriptions. Built with **Java 21** and **Spring Boot 3**, this project demonstrates modern backend architecture, secure stateless authentication, and robust data validation. The API is hosted on Render with a TiDB Cloud Serverless database.
 
 ---
 
@@ -32,8 +33,9 @@ This application follows the standard Enterprise Java Layered Architecture, ensu
 
 *   **Core**: Java 21, Spring Boot 3.3.2
 *   **Security**: Spring Security, jjwt (JSON Web Tokens), Bucket4j (Rate Limiting)
-*   **Database**: Spring Data JPA, Hibernate, MariaDB (MySQL compatible)
+*   **Database**: Spring Data JPA, Hibernate, MySQL/TiDB Cloud
 *   **Documentation**: Springdoc OpenAPI (Swagger UI)
+*   **Hosting**: Docker, Render (Backend), TiDB Serverless (Database)
 *   **Testing**: JUnit 5, Mockito
 *   **Utilities**: Lombok, Spring Dotenv
 
@@ -46,13 +48,14 @@ Follow these steps to get the API running on your local machine.
 ### Prerequisites
 *   [Java Development Kit (JDK) 21+](https://adoptium.net/)
 *   [Maven](https://maven.apache.org/download.cgi)
-*   [MariaDB](https://mariadb.org/) or MySQL installed and running locally.
+*   A local MySQL installation, OR a free cloud database like [TiDB Serverless](https://tidbcloud.com/).
 
 ### 1. Database Setup
-Create a new database for the application:
+If running locally, create a new database for the application:
 ```sql
 CREATE DATABASE subscription_tracker;
 ```
+*(If using TiDB, a default `test` database is automatically created for you).*
 
 ### 2. Configure Environment Variables
 This project uses a `.env` file to keep secrets out of source control. 
@@ -80,11 +83,13 @@ mvn clean spring-boot:run
 
 ## 📖 API Documentation (Swagger UI)
 
-Once the application is running, you don't need to guess the endpoints or request bodies! The API is fully self-documenting.
+The API is fully self-documenting and hosted live! You don't need to run it locally to test the endpoints.
 
-Navigate to the following URL in your browser to access the interactive Swagger UI:
+Navigate to the following URL in your browser to access the interactive Swagger UI for the production environment:
 
-👉 **[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)**
+👉 **[Live Swagger UI](https://subscription-tracker-api-java.onrender.com/swagger-ui/index.html)**
+
+*(If running locally, it is available at `http://localhost:8080/swagger-ui/index.html`)*
 
 ### Testing with Swagger
 1.  Navigate to `POST /auth/register` to create an account.
