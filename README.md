@@ -24,7 +24,7 @@ A production-ready REST API for tracking personal subscriptions. Built with **Ja
 
 This application follows the standard Enterprise Java Layered Architecture, ensuring that HTTP parsing, business logic, and database access are strictly isolated.
 
-![Architecture Diagram](docs/architecture.svg)
+*(Insert your Excalidraw Architecture Diagram here)*
 
 ---
 
